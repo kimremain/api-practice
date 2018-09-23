@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Logback – different log file for each thread
+http://www.mkyong.com/logging/logback-different-log-file-for-each-thread/
+logback을 사용해 보자
+http://knot.tistory.com/92
+Gracefully stop Logback in container environment
+http://stackoverflow.com/questions/34493817/gracefully-stop-logback-in-container-environment
+ -->
+ 
+<configuration scan="true" scanPeriod="60 seconds" debug="true">
+	<!-- in the absence of the class attribute, assume  -->
+<!--	<shutdownHook>
+	   ch.qos.logback.core.hook.DelayingShutdownHook
+   <shutdownHook/>-->
+   
+    <property resource="application.properties"/>
+    
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<Pattern>
+				%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n
+			</Pattern>
+		</layout>
+    </appender>     
+
+	<appender name="FILE-THREAD" class="ch.qos.logback.classic.sift.SiftingAppender">
+		<discriminator>
+			<key>nmLogFile</key>
+			<defaultValue>CUEBRIDGE-WEB</defaultValue>	
+		</discriminator>
+		<sift>
+		  <appender name="FILE-${nmLogFile}" class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>${log.dir}${nmLogFile}.APP</file>
+			<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+				<Pattern>
+					%d{yyyy-MM-dd HH:mm:ss} %level %X{nmUser} %logger{36} - %msg%n
+				</Pattern>
+			</encoder>
+			<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+				<FileNamePattern>${log.dir}${nmLogFile}.%d{yyyy-MM-dd}.APP</FileNamePattern>
+				<maxHistory>3</maxHistory>
+			</rollingPolicy>
+			<!-- 트리거사용금지x:로컬환경에서 해당사이즈 초과시 에러발생 추후 적용시 충분히 테스트후 적용필요-->
+<!-- 			<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+				<MaxFileSize>20MB</MaxFileSize>
+			</triggeringPolicy> -->
+		  </appender>
+		</sift>
+	</appender>
+
+	<root level="${log.level.root}">
+		<appender-ref ref="CONSOLE"/>
+		<appender-ref ref="FILE-THREAD"/>
+	</root>
+	
+	<logger name="com.kimremain" level="${log.level.kimremain}"/>
+	<logger name="org.springframework" level="${log.level.spring}"/>
+	<logger name="javax.persistence" level="${log.level.persistence}"/> 	
+	<logger name="org.hibernate" level="${log.level.hibernate}"/>
+
+    
+</configuration>

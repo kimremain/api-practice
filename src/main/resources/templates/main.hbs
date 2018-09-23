@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>API search demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
+</head>
+<body onload="init()">
+<center>
+<h4>API search demo</h4>
+<br>
+</center>
+
+<form action="/search" class="form-inline" role="form" method="get">
+    <div class="form-group">
+        <label for="location">&nbsp;&nbsp;지역 :&nbsp;</label>
+        <select class="form-control required" value="{{location}}" name="location" id="location">
+            <option>서울</option>
+            <option>부산</option>
+            <option>대구</option>
+            <option>인천</option>
+            <option>광주</option>
+            <option>대전</option>
+            <option>울산</option>
+            <option>세종</option>
+            <option>경기</option>
+            <option>강원</option>
+            <option>충청</option>
+            <option>전라</option>
+            <option>경상</option>
+            <option>제주</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="keyword">키워드 :&nbsp;</label>
+        <input type="text" value="{{keyword}}" class="form-control required" name="keyword" id="keyword" placeholder="키워드를 입력하세요">
+    </div>
+    <button type="submit" class="btn btn-default">검색</button>
+</form>
+
+<div class="col-md-12">
+    <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#savePostsModal">검색</button>-->
+    <br/>
+    <br/>
+    <!-- 목록 출력 영역 -->
+    <table class="table table-horizontal table-bordered">
+        <thead class="thead-strong">
+        <tr>
+            <th>no</th>
+            <th>상호명</th>
+            <th>전화번호</th>
+            <th>링크</th>
+            <th>주소</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+        {{#each posts}}
+            <tr>
+                <td>{{no}}</td>
+                <td>{{name}}</td>
+                <td>{{phone}}</td>
+                <td>
+                    <a href={{urlBasic}}>
+                        <div style="height:100%;width:100%">
+                            링크 바로가기
+                        </div>
+                    </a>
+                </td>
+                <td>
+                    <a href={{urlMap}}>
+                        <div style="height:100%;width:100%">
+                            지도 바로가기
+                        </div>
+                    </a>
+                </td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    function init(){
+        document.getElementById('location').value = "{{location}}";
+
+        //var val = location.href.match(/[?&]location=(.*?)(?:$|&)/)[1];   // get params "u" from URL
+        //document.getElementById("location").value = val; // u
+    }
+</script>
+<script src="/js/lib/jquery-3.3.1.min.js"></script>
+<script src="/js/lib/bootstrap.min.js"></script>
+</body>
+</html>
