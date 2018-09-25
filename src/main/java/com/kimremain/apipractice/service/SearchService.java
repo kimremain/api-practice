@@ -6,12 +6,16 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.kimremain.apipractice.module.CommonHttpClient;
 import com.kimremain.apipractice.vo.NaverItemVO;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
 
+@AllArgsConstructor
+@Service
 public class SearchService extends BaseService {
 
     public ArrayList<NaverItemVO> getData(String location, String keyword) throws Exception {

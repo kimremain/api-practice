@@ -2,15 +2,16 @@ package com.kimremain.apipractice.ctrl;
 
 import com.kimremain.apipractice.service.SearchService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-@RestController
+@Controller
 @AllArgsConstructor
 public class SearchController extends BaseController{
-
+    @Autowired
     private SearchService searchService;
 
 

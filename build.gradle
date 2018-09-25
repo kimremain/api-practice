@@ -12,8 +12,12 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+
+//jar.enabled = true
+//bootJar.enabled = true
 
 group = 'com.kimremain'
 version = '0.0.1-SNAPSHOT'
@@ -23,11 +27,18 @@ repositories {
 	mavenCentral()
 }
 
+jar {
+    manifest {
+		attributes 'Main-Class': 'com.kimremain.apipractice.ApiPracticeApplication'
+		attributes 'addClasspath': 'true'
+    }
+}
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-actuator')
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	//compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('org.springframework.boot:spring-boot-starter')
 	runtime('com.h2database:h2')
 	compileOnly('org.projectlombok:lombok')
 	// https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
