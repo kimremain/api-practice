@@ -15,7 +15,7 @@
 <form action="/search" class="form-inline" role="form" method="get">
     <div class="form-group">
         <label for="location">&nbsp;&nbsp;지역 :&nbsp;</label>
-        <select class="form-control required" value="{{location}}" name="location" id="location">
+        <select class="form-control required" name="location" id="location">
             <option>서울</option>
             <option>부산</option>
             <option>대구</option>
@@ -83,10 +83,8 @@
 
 <script>
     function init(){
-        document.getElementById('location').value = "{{location}}";
-
-        //var val = location.href.match(/[?&]location=(.*?)(?:$|&)/)[1];   // get params "u" from URL
-        //document.getElementById("location").value = val; // u
+        var value = '{{location}}';
+        $("#location").val(value).prop("selected", true);
     }
 </script>
 <script src="/js/lib/jquery-3.3.1.min.js"></script>
