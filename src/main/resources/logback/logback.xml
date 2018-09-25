@@ -27,11 +27,11 @@ http://stackoverflow.com/questions/34493817/gracefully-stop-logback-in-container
 	<appender name="FILE-THREAD" class="ch.qos.logback.classic.sift.SiftingAppender">
 		<discriminator>
 			<key>nmLogFile</key>
-			<defaultValue>CUEBRIDGE-WEB</defaultValue>	
+			<defaultValue>LOGNAME</defaultValue>
 		</discriminator>
 		<sift>
 		  <appender name="FILE-${nmLogFile}" class="ch.qos.logback.core.rolling.RollingFileAppender">
-			<file>${log.dir}${nmLogFile}.APP</file>
+			<file>${log.dir}${nmLogFile}.LOG</file>
 			<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 				<Pattern>
 					%d{yyyy-MM-dd HH:mm:ss} %level %X{nmUser} %logger{36} - %msg%n
