@@ -23,7 +23,7 @@ public class SearchService extends BaseService {
         //String url = "https://store.naver.com/sogum/api/businesses?filterId=s11556055&filterOpening=true&query=" + location + " " + keyword + "&start=1&display=100&sortingOrder=precision";
         String query = location + " " + keyword;
         query = URLEncoder.encode(query, "utf-8");
-        String url = "https://store.naver.com/sogum/api/businesses?filterOpening=true&query=" + query + "&start=1&display=100&sortingOrder=precision";
+        String url = "https://store.naver.com/sogum/api/businesses?filterOpening=true&query=" + query + "&start=1&display=1000&sortingOrder=precision";
         String result = commonHttpClient.requestHttpGet(url,"utf-8");
         int count = 0;
 
@@ -51,6 +51,10 @@ public class SearchService extends BaseService {
                     vo.setName(dummy.getAsJsonObject().get("name").getAsString());
                     if(dummy.getAsJsonObject().get("phone") != null) {
                         vo.setPhone(dummy.getAsJsonObject().get("phone").getAsString());
+                    }
+                    if(dummy.getAsJsonObject().get("commonAddr") != null
+                    && dummy.getAsJsonObject().get("addr") != null) {
+                        vo.setAddress(dummy.getAsJsonObject().get("commonAddr").getAsString() + " " + dummy.getAsJsonObject().get("addr").getAsString());
                     }
 	        		vo.setUrlBasic(urlBasic + vo.getId());
 	        		vo.setUrlMap(urlMap + vo.getId());

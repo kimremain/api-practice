@@ -7,6 +7,7 @@ public class NaverItemVO {
     private String phone;
     private String urlBasic;
     private String urlMap;
+    private String address;
 
     public String getId() {
         return id;
@@ -43,5 +44,13 @@ public class NaverItemVO {
     }
     public void setNo(int no) {
         this.no = no;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
